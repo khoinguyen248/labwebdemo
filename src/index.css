@@ -1,0 +1,228 @@
+:root {
+  /* Palette extracted/approximated from user image (Left to Right) */
+  --color-1: #A7C7E7; /* Lightest Blue (Pastel) */
+  --color-2: #6FA3D3; /* Medium Light Blue */
+  --color-3: #1B2B6B; /* Deep Blue (Primary) */
+  --color-4: #0F1C4D; /* Darker Blue */
+  --color-5: #050A30; /* Darkest Navy (Footer/Text) */
+
+  --text-dark: #333;
+  --text-light: #fff;
+  --font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  
+  --bg-color: #f8fafc; /* Clean off-white background */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.btn-primary {
+  background-color: var(--color-3); /* Solid Deep Blue */
+  color: white;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-2); /* Lighter on hover */
+}
+
+/* Header */
+.header {
+  background-color: white;
+  border-bottom: 2px solid var(--color-1); /* Accent border */
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: var(--color-4);
+}
+
+.logo-icon {
+  background-color: white; /* Solid Color */
+  color: white;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.8rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.nav-link:hover {
+  color: var(--color-3);
+}
+
+.nav-item-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 0.35rem 0.75rem;
+  background-color: white;
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  background: transparent;
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+  width: 150px;
+}
+
+.shortcut-hint {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  border: 1px solid #cbd5e1;
+  border-radius: 3px;
+  padding: 0 4px;
+  margin-left: 0.5rem;
+}
+
+.search-icon {
+    color: var(--color-3);
+}
+
+/* Footer */
+.footer {
+  background-color: var(--color-5); /* Solid Darkest Navy */
+  color: var(--text-light);
+  padding: 3rem 0;
+  margin-top: auto;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  font-size: 0.9rem;
+}
+
+.footer-left .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-icon-small {
+     background-color: var(--color-2); /* Lighter accent for contrast on dark footer */
+     color: var(--color-5);
+     width: 48px;
+     height: 48px;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 0.7rem;
+     font-weight: bold;
+}
+
+.footer-right h3 {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--color-1); /* Lightest blue for headings in footer */
+}
+
+.footer-right p {
+    margin-bottom: 0.25rem;
+    color: #e2e8f0;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-link {
+    color: #cbd5e1;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+}
+
+.social-link:hover {
+    color: var(--color-2);
+    transform: translateY(-2px);
+}
+
+/* Layout */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+}
+
+.page-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
