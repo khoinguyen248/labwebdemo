@@ -1,6 +1,6 @@
 import React from 'react';
 
-const People: React.FC = () => {
+const Member: React.FC = () => {
     return (
         <div className="page-container">
             <h1>People</h1>
@@ -9,4 +9,4 @@ const People: React.FC = () => {
     );
 };
 
-export default People;
+export default Member;

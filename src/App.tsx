@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
-import AboutUs from './pages/AboutUs';
-import People from './pages/People';
-import Knowledge from './pages/Knowledge';
+import Project from './pages/Project';
 import JoinUs from './pages/JoinUs';
 import './index.css';
+import Publications from './pages/Publications';
+import Member from './pages/Member';
+import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -14,10 +15,11 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Navigate to="/home" replace />} />
           <Route path="home" element={<Home />} />
-          <Route path="about-us" element={<AboutUs />} />
-          <Route path="people" element={<People />} />
-          <Route path="knowledge-contributions" element={<Knowledge />} />
+          <Route path="publications" element={<Publications />} />
+          <Route path="project" element={<Project />} />
+          <Route path="member" element={<Member />} />
           <Route path="join-us" element={<JoinUs />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
       </Routes>
     </BrowserRouter>

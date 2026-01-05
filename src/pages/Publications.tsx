@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Knowledge: React.FC = () => {
+const Publications: React.FC = () => {
     return (
         <div className="page-container">
             <h1>Knowledge & Contributions</h1>
@@ -9,4 +9,4 @@ const Knowledge: React.FC = () => {
     );
 };
 
-export default Knowledge;
+export default Publications;
