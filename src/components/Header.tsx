@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaSearch, FaChevronDown } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
 
 const Header: React.FC = () => {
     const navigate = useNavigate();
