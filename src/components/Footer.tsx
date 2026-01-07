@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
             <div className="container footer-container">
                 <div className="footer-left">
                     <div className="logo-section">
-                        <img src="avt.png" alt="" className='logo-icon' />
+
                         <span className="copyright">© 2025 MLIoT Lab. Made by SE Team.</span>
                     </div>
                 </div>

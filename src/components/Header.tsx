@@ -11,7 +11,6 @@ const Header: React.FC = () => {
                 <Link to="/home" className="logo">
                     {/* Placeholder for Logo Icon - using text for now or a generic icon */}
                     <img src="avt.png" alt="" className='logo-icon' />
-                    <span className="logo-text">MLIoT Lab</span>
                 </Link>
 
                 <nav className="nav-links">
