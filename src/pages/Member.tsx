@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import type { MemberData } from '../types';
 import './Member.css';
-import { FaGithub, FaLinkedin, FaFacebook, FaEnvelope, FaGraduationCap, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaFacebook, FaEnvelope, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-const PaginatedMemberGrid: React.FC<{ members: MemberData[], renderCard: (m: MemberData) => React.ReactNode }> = ({ members, renderCard }) => {
+const PaginatedMemberGrid: React.FC<{
+    members: MemberData[],
+    renderCard: (m: MemberData) => React.ReactNode,
+    itemsPerPage?: number
+}> = ({ members, renderCard, itemsPerPage = 6 }) => {
     const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 6;
     const totalPages = Math.ceil(members.length / itemsPerPage);
 
     const nextPage = () => setCurrentPage((prev) => (prev + 1) % totalPages);
@@ -68,17 +71,17 @@ const Member: React.FC = () => {
                         const rows = (results.data as string[][]).slice(2);
 
                         const data: MemberData[] = rows.filter(row => row[0]).map(row => ({
-                            "Tên": row[0],
-                            "Vai trò": row[1],
-                            "Areas of Interests": row[2],
-                            "Team": row[3],
-                            "Email": row[4],
-                            "Github": row[5],
-                            "Trang cá nhân (Facebook/Linkedln/Google scholar..)": row[6],
-                            "Trường/Ngành": row[7],
-                            "Thành tích/ Project cá nhân": row[8],
-                            "Dự án thực hiện ở Lab": row[9],
-                            "Hình đại diện": row[10]
+                            "Tên": row[0]?.trim(),
+                            "Vai trò": row[1]?.trim(),
+                            "Areas of Interests": row[2]?.trim(),
+                            "Team": row[3]?.trim(),
+                            "Email": row[4]?.trim(),
+                            "Github": row[5]?.trim(),
+                            "Trang cá nhân (Facebook/Linkedln/Google scholar..)": row[6]?.trim(),
+                            "Trường/Ngành": row[7]?.trim(),
+                            "Thành tích/ Project cá nhân": row[8]?.trim(),
+                            "Dự án thực hiện ở Lab": row[9]?.trim(),
+                            "Hình đại diện": row[10]?.trim()
                         }));
                         setMembers(data);
                         setLoading(false);
@@ -103,7 +106,12 @@ const Member: React.FC = () => {
 
         let avatarUrl = 'avt.png';
         if (rawAvatar && rawAvatar !== '') {
-            avatarUrl = rawAvatar.includes('.') ? rawAvatar : `${rawAvatar}.jpg`;
+            // Handle common prefixes or full filenames
+            let cleanAvatar = rawAvatar;
+            if (cleanAvatar.toLowerCase().startsWith('hình ảnh ')) {
+                cleanAvatar = cleanAvatar.substring(9).trim();
+            }
+            avatarUrl = cleanAvatar.includes('.') ? cleanAvatar : `${cleanAvatar}.jpg`;
         } else if (memberName) {
             avatarUrl = `${memberName}.jpg`;
         }
@@ -121,9 +129,19 @@ const Member: React.FC = () => {
                 <div className="card-avatar-section">
                     <img
                         src={avatarUrl}
-                        alt={member['Tên']}
+                        alt={memberName}
                         className="circle-avatar"
-                        onError={(e) => { (e.target as HTMLImageElement).src = 'avt.png'; }}
+                        onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            const nameImg = `${memberName}.jpg`;
+                            // If the current src is not already the name-based one, try it
+                            if (!target.src.endsWith(encodeURIComponent(nameImg)) && !target.src.endsWith(nameImg)) {
+                                target.src = nameImg;
+                            } else {
+                                // If name-based also fails, use default avatar
+                                target.src = 'avt.png';
+                            }
+                        }}
                     />
                 </div>
                 <div className="card-info-section">
@@ -137,7 +155,7 @@ const Member: React.FC = () => {
                     </div>
                     <p className="member-role-text">{member['Vai trò']}</p>
                     <div className="card-edu-line">
-                        <FaGraduationCap className="edu-icon-small" />
+
                         <span className="edu-text">{member['Trường/Ngành']}</span>
                     </div>
                     <div className="card-social-links">
@@ -199,7 +217,7 @@ const Member: React.FC = () => {
                 {headOfLab.length > 0 && (
                     <section className="member-section">
                         <h2 className="section-label">Head of Lab</h2>
-                        <div className="members-standard-grid center-single">
+                        <div className="members-standard-grid ">
                             {headOfLab.map(renderMemberCard)}
                         </div>
                     </section>
@@ -215,7 +233,7 @@ const Member: React.FC = () => {
                 {leaders.length > 0 && (
                     <section className="member-section">
                         <h2 className="section-label">Team Leaders</h2>
-                        <PaginatedMemberGrid members={leaders} renderCard={renderMemberCard} />
+                        <PaginatedMemberGrid members={leaders} renderCard={renderMemberCard} itemsPerPage={2} />
                     </section>
                 )}
 
@@ -225,7 +243,12 @@ const Member: React.FC = () => {
                         <PaginatedMemberGrid members={coreMembers} renderCard={renderMemberCard} />
                     </section>
                 )}
-
+                {formerMembers.length > 0 && (
+                    <section className="member-section">
+                        <h2 className="section-label">Alumni</h2>
+                        <PaginatedMemberGrid members={formerMembers} renderCard={renderMemberCard} />
+                    </section>
+                )}
                 {regularMembers.length > 0 && (
                     <section className="member-section">
                         <h2 className="section-label">Members</h2>
@@ -233,12 +256,7 @@ const Member: React.FC = () => {
                     </section>
                 )}
 
-                {formerMembers.length > 0 && (
-                    <section className="member-section">
-                        <h2 className="section-label">Alumni</h2>
-                        <PaginatedMemberGrid members={formerMembers} renderCard={renderMemberCard} />
-                    </section>
-                )}
+
             </div>
         </div>
     );
