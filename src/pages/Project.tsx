@@ -62,7 +62,7 @@ const Project: React.FC = () => {
             <section className="projects-hero">
                 <div className="container">
                     <h1 className="hero-title">Our Projects</h1>
-                    <p className="hero-subtitle">Innovative solutions and research projects developed by MLIoT Lab members.</p>
+                    <p className="hero-subtitle" style={{ textAlign: 'center', marginLeft: "80px" }}>Innovative solutions and research projects developed by MLIoT Lab members.</p>
                 </div>
             </section>
 

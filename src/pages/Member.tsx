@@ -98,9 +98,15 @@ const Member: React.FC = () => {
     }, []);
 
     const renderMemberCard = (member: MemberData) => {
-        const avatarUrl = member['Hình đại diện'] ?
-            (member['Hình đại diện'].trim().includes('.') ? member['Hình đại diện'].trim() : `${member['Hình đại diện'].trim()}.jpg`)
-            : 'avt.png';
+        const rawAvatar = member['Hình đại diện']?.trim();
+        const memberName = member['Tên']?.trim();
+
+        let avatarUrl = 'avt.png';
+        if (rawAvatar && rawAvatar !== '') {
+            avatarUrl = rawAvatar.includes('.') ? rawAvatar : `${rawAvatar}.jpg`;
+        } else if (memberName) {
+            avatarUrl = `${memberName}.jpg`;
+        }
 
         let teamClass = '';
         const role = member['Vai trò']?.toLowerCase() || '';
@@ -185,7 +191,7 @@ const Member: React.FC = () => {
             <section className="member-hero">
                 <div className="container">
                     <h1 className="hero-title">Our People</h1>
-                    <p className="hero-subtitle">Meet the brilliant minds behind MLIoT Lab's research and innovation.</p>
+                    <p className="hero-subtitle" style={{ textAlign: 'center', marginLeft: "80px" }}>Meet the brilliant minds behind MLIoT Lab's research and innovation.</p>
                 </div>
             </section>
 

@@ -10,14 +10,12 @@ const Home: React.FC = () => {
             {/* Hero Section */}
             <section className="hero-section">
                 <div className="container">
-                    <h1 className="hero-title">HCMUT EE Machine Learning & IoT Lab (MLIoT Lab)</h1>
+                    <h1 className="hero-title">HCMUT EE Machine Learning & IoT Lab </h1>
                     <p className="hero-subtitle">
                         A specialized research laboratory at the Faculty of Electrical & Electronics Engineering, HCMUT.
                         We focus on R&D in Artificial Intelligence, IoT, and Software Engineering.
                     </p>
-                    <button className="btn-primary" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }} onClick={() => navigate('/join-us')}>
-                        Join the Lab
-                    </button>
+
                 </div>
             </section>
 
