@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import type { MemberData } from '../types';
 import './Member.css';
-import { FaGithub, FaLinkedin, FaFacebook, FaEnvelope, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaFacebook, FaEnvelope, FaChevronLeft, FaChevronRight, FaTimes, FaLightbulb, FaAward, FaFlask } from 'react-icons/fa';
 
 const PaginatedMemberGrid: React.FC<{
     members: MemberData[],
@@ -16,14 +16,6 @@ const PaginatedMemberGrid: React.FC<{
     const prevPage = () => setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
 
     const currentMembers = members.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
-
-    if (members.length <= itemsPerPage) {
-        return (
-            <div className="members-standard-grid">
-                {members.map(renderCard)}
-            </div>
-        );
-    }
 
     return (
         <div className="paginated-section">
@@ -54,6 +46,33 @@ const PaginatedMemberGrid: React.FC<{
 const Member: React.FC = () => {
     const [members, setMembers] = useState<MemberData[]>([]);
     const [loading, setLoading] = useState(true);
+    const [selectedMember, setSelectedMember] = useState<MemberData | null>(null);
+
+    const getAvatarUrl = (member: MemberData) => {
+        const rawAvatar = member['Hình đại diện']?.trim();
+        const memberName = member['Tên']?.trim();
+
+        let avatarUrl = 'avt.png';
+        if (rawAvatar && rawAvatar !== '') {
+            let cleanAvatar = rawAvatar;
+            if (cleanAvatar.toLowerCase().startsWith('hình ảnh ')) {
+                cleanAvatar = cleanAvatar.substring(9).trim();
+            }
+            avatarUrl = cleanAvatar.includes('.') ? cleanAvatar : `${cleanAvatar}.jpg`;
+        } else if (memberName) {
+            avatarUrl = `${memberName}.jpg`;
+        }
+        return avatarUrl;
+    };
+
+    const getTeamClass = (member: MemberData) => {
+        const role = member['Vai trò']?.toLowerCase() || '';
+        const team = member['Team']?.toLowerCase() || '';
+        if (team.includes('ai') || role.includes('ai')) return 'team-ai';
+        if (team.includes('iot') || role.includes('iot')) return 'team-iot';
+        if (team.includes('se') || role.includes('se')) return 'team-se';
+        return '';
+    };
 
     useEffect(() => {
         const fetchMembers = async () => {
@@ -101,28 +120,9 @@ const Member: React.FC = () => {
     }, []);
 
     const renderMemberCard = (member: MemberData) => {
-        const rawAvatar = member['Hình đại diện']?.trim();
         const memberName = member['Tên']?.trim();
-
-        let avatarUrl = 'avt.png';
-        if (rawAvatar && rawAvatar !== '') {
-            // Handle common prefixes or full filenames
-            let cleanAvatar = rawAvatar;
-            if (cleanAvatar.toLowerCase().startsWith('hình ảnh ')) {
-                cleanAvatar = cleanAvatar.substring(9).trim();
-            }
-            avatarUrl = cleanAvatar.includes('.') ? cleanAvatar : `${cleanAvatar}.jpg`;
-        } else if (memberName) {
-            avatarUrl = `${memberName}.jpg`;
-        }
-
-        let teamClass = '';
-        const role = member['Vai trò']?.toLowerCase() || '';
-        const team = member['Team']?.toLowerCase() || '';
-
-        if (team.includes('ai') || role.includes('ai')) teamClass = 'team-ai';
-        else if (team.includes('iot') || role.includes('iot')) teamClass = 'team-iot';
-        else if (team.includes('se') || role.includes('se')) teamClass = 'team-se';
+        const avatarUrl = getAvatarUrl(member);
+        const teamClass = getTeamClass(member);
 
         return (
             <div className={`member-card-standard ${teamClass}`} key={member['Tên']}>
@@ -146,7 +146,13 @@ const Member: React.FC = () => {
                 </div>
                 <div className="card-info-section">
                     <div className="card-header-flex">
-                        <h3 className="member-name-text">{member['Tên']}</h3>
+                        <h3
+                            className="member-name-text"
+                            onClick={() => setSelectedMember(member)}
+                            title="View Profile"
+                        >
+                            {member['Tên']}
+                        </h3>
                         {teamClass && (
                             <span className={`team-badge ${teamClass}`}>
                                 {teamClass === 'team-ai' ? 'AI' : teamClass === 'team-iot' ? 'IoT' : 'SE'}
@@ -258,6 +264,67 @@ const Member: React.FC = () => {
 
 
             </div>
+
+            {/* Portfolio Modal */}
+            {selectedMember && (
+                <div className="modal-overlay" onClick={() => setSelectedMember(null)}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                        <button className="modal-close-btn" onClick={() => setSelectedMember(null)}>
+                            <FaTimes />
+                        </button>
+
+                        <div className="modal-header-section">
+                            <img
+                                src={getAvatarUrl(selectedMember)}
+                                alt={selectedMember['Tên']}
+                                className="modal-avatar-large"
+                                onError={(e) => {
+                                    const target = e.target as HTMLImageElement;
+                                    const mName = selectedMember['Tên']?.trim();
+                                    const nameImg = `${mName}.jpg`;
+                                    if (!target.src.endsWith(encodeURIComponent(nameImg)) && !target.src.endsWith(nameImg)) {
+                                        target.src = nameImg;
+                                    } else {
+                                        target.src = 'avt.png';
+                                    }
+                                }}
+                            />
+                            <div className="modal-info-block">
+                                <span className={`modal-role-badge ${getTeamClass(selectedMember)}`}>
+                                    {selectedMember['Vai trò']}
+                                </span>
+                                <h2>{selectedMember['Tên']}</h2>
+                                <div className="modal-edu-text">
+                                    {selectedMember['Trường/Ngành']}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="modal-details">
+                            {selectedMember['Areas of Interests'] && (
+                                <div className="detail-block">
+                                    <h4><FaLightbulb /> Areas of Interests</h4>
+                                    <div className="detail-content">{selectedMember['Areas of Interests']}</div>
+                                </div>
+                            )}
+
+                            {selectedMember['Thành tích/ Project cá nhân'] && (
+                                <div className="detail-block">
+                                    <h4><FaAward /> Achievements & Personal Projects</h4>
+                                    <div className="detail-content">{selectedMember['Thành tích/ Project cá nhân']}</div>
+                                </div>
+                            )}
+
+                            {selectedMember['Dự án thực hiện ở Lab'] && (
+                                <div className="detail-block">
+                                    <h4><FaFlask /> Lab Projects</h4>
+                                    <div className="detail-content">{selectedMember['Dự án thực hiện ở Lab']}</div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
