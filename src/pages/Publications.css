@@ -1,0 +1,171 @@
+.publications-page {
+    background-color: var(--bg-color);
+    min-height: 100vh;
+}
+
+.publications-hero {
+    background: linear-gradient(135deg, var(--color-4) 0%, var(--color-3) 100%);
+    color: white;
+    padding: 5rem 0;
+    text-align: center;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.publications-hero .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+}
+
+.publications-hero .hero-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.page-content {
+    padding-bottom: 5rem;
+}
+
+.publications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.publication-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.publication-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.pub-date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-2);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.pub-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-5);
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+.pub-journal, .pub-authors {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: #4b5563;
+    font-size: 0.95rem;
+}
+
+.publication-card .icon {
+    color: var(--color-3);
+    min-width: 16px;
+}
+
+.pub-abstract {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background-color: #f1f5f9;
+    border-radius: 8px;
+}
+
+.pub-abstract h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--color-4);
+}
+
+.pub-abstract p {
+    font-size: 0.95rem;
+    color: #374151;
+    line-height: 1.6;
+}
+
+.pub-footer {
+    display: flex;
+    margin-top: 2rem;
+}
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--color-3);
+    color: var(--color-3);
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.2s;
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-outline:hover {
+    background-color: var(--color-3);
+    color: white;
+}
+
+/* Loading state */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 1.5rem;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--color-1);
+    border-bottom-color: var(--color-3);
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    .publications-hero {
+        padding: 3rem 1rem;
+    }
+    .publications-hero .hero-title {
+        font-size: 2rem;
+    }
+    .publication-card {
+        padding: 1.5rem;
+    }
+    .pub-title {
+        font-size: 1.25rem;
+    }
+}

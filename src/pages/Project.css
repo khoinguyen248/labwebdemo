@@ -1,0 +1,133 @@
+.projects-page {
+    background-color: #f3f4f6; /* Subtle light grey background for the page */
+    min-height: 100vh;
+}
+
+.projects-hero {
+    background: linear-gradient(135deg, var(--color-4) 0%, var(--color-3) 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.projects-hero .hero-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.projects-hero .hero-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.85;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2.5rem;
+    padding-bottom: 5rem;
+}
+
+.project-card {
+    background: #fff;
+    border-radius: 2px; /* Sharp corners like the template */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: box-shadow 0.2s ease;
+    height: 100%;
+    border: 1px solid #e5e7eb;
+}
+
+.project-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.project-body {
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-tag {
+    display: inline-block;
+    background-color: #6b7280; /* Default grey tag */
+    color: white;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    width: fit-content;
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+}
+
+.project-tag.award {
+    background-color: #c2410c; /* Reddish color for awards like in the template */
+}
+
+.project-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #374151; /* Dark grey */
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+}
+
+.project-description {
+    font-size: 1rem;
+    color: #4b5563; /* Medium grey */
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    flex: 1;
+}
+
+.project-meta {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f3f4f6;
+}
+
+.project-members {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #9ca3af; /* Light grey */
+    font-size: 0.9rem;
+}
+
+.project-members .icon {
+    font-size: 0.85rem;
+}
+
+.project-footer {
+    padding: 1.5rem 2rem;
+    background-color: #fafafa;
+    border-top: 1px solid #e5e7eb;
+}
+
+.github-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-3);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.github-link:hover {
+    color: var(--color-4);
+    text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    .project-body {
+        padding: 1.5rem;
+    }
+}
