@@ -202,14 +202,9 @@ const Member: React.FC = () => {
     const labManagers = getGroup('Lab Manager').filter(m => !m['Vai trò'].toLowerCase().includes('former'));
     const leaders = getGroup('Leader');
     const coreMembers = getGroup('Core Member');
-    const regularMembers = getGroup('Member').filter(m =>
-        !m['Vai trò'].toLowerCase().includes('leader') &&
-        !m['Vai trò'].toLowerCase().includes('core') &&
-        !m['Vai trò'].toLowerCase().includes('manager') &&
-        !m['Vai trò'].toLowerCase().includes('head')
-    );
+
     const formerMembers = getGroup('Former');
-    
+
     // Combine alumni (former members) with core members, alumni first
     const combinedCoreMembers = [...formerMembers, ...coreMembers];
 
@@ -254,12 +249,7 @@ const Member: React.FC = () => {
                         <PaginatedMemberGrid members={combinedCoreMembers} renderCard={renderMemberCard} />
                     </section>
                 )}
-                {/* {regularMembers.length > 0 && (
-                    <section className="member-section">
-                        <h2 className="section-label">Members</h2>
-                        <PaginatedMemberGrid members={regularMembers} renderCard={renderMemberCard} />
-                    </section>
-                )} */}
+
 
 
             </div>
