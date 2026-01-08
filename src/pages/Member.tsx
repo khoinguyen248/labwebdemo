@@ -209,6 +209,9 @@ const Member: React.FC = () => {
         !m['Vai trò'].toLowerCase().includes('head')
     );
     const formerMembers = getGroup('Former');
+    
+    // Combine alumni (former members) with core members, alumni first
+    const combinedCoreMembers = [...formerMembers, ...coreMembers];
 
     return (
         <div className="member-page">
@@ -221,18 +224,20 @@ const Member: React.FC = () => {
 
             <div className="container page-content">
                 {headOfLab.length > 0 && (
-                    <section className="member-section">
+                    <section className="member-section centered-section">
                         <h2 className="section-label">Head of Lab</h2>
-                        <div className="members-standard-grid ">
+                        <div className="members-standard-grid centered-grid">
                             {headOfLab.map(renderMemberCard)}
                         </div>
                     </section>
                 )}
 
                 {labManagers.length > 0 && (
-                    <section className="member-section">
+                    <section className="member-section centered-section">
                         <h2 className="section-label">Lab Management</h2>
-                        <PaginatedMemberGrid members={labManagers} renderCard={renderMemberCard} />
+                        <div className="members-standard-grid centered-grid">
+                            {labManagers.map(renderMemberCard)}
+                        </div>
                     </section>
                 )}
 
@@ -243,24 +248,18 @@ const Member: React.FC = () => {
                     </section>
                 )}
 
-                {coreMembers.length > 0 && (
+                {combinedCoreMembers.length > 0 && (
                     <section className="member-section">
                         <h2 className="section-label">Core Members</h2>
-                        <PaginatedMemberGrid members={coreMembers} renderCard={renderMemberCard} />
+                        <PaginatedMemberGrid members={combinedCoreMembers} renderCard={renderMemberCard} />
                     </section>
                 )}
-                {formerMembers.length > 0 && (
-                    <section className="member-section">
-                        <h2 className="section-label">Alumni</h2>
-                        <PaginatedMemberGrid members={formerMembers} renderCard={renderMemberCard} />
-                    </section>
-                )}
-                {regularMembers.length > 0 && (
+                {/* {regularMembers.length > 0 && (
                     <section className="member-section">
                         <h2 className="section-label">Members</h2>
                         <PaginatedMemberGrid members={regularMembers} renderCard={renderMemberCard} />
                     </section>
-                )}
+                )} */}
 
 
             </div>

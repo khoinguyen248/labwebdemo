@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebookF, FaGithub, FaYoutube } from 'react-icons/fa';
+import { FaFacebookF, FaGithub, FaYoutube, FaMapMarkerAlt, FaGlobe, FaEnvelope } from 'react-icons/fa';
 
 const Footer: React.FC = () => {
     return (
@@ -7,19 +7,44 @@ const Footer: React.FC = () => {
             <div className="container footer-container">
                 <div className="footer-left">
                     <div className="logo-section">
-
                         <span className="copyright">© 2025 MLIoT Lab. Made by SE Team.</span>
                     </div>
                 </div>
 
                 <div className="footer-right">
                     <h3>Contact</h3>
-                    <p className="email">nkloi@hcmut.edu.vn</p>
-                    <p className="address">Ly Thuong Kiet Street, Ho Chi Minh City, Vietnam</p>
+                    
+                    <div className="footer-info">
+                        <p className="footer-item">
+                            <FaMapMarkerAlt className="footer-icon" />
+                            <span><strong>Location:</strong> 403.1 BK.B6, HCMUT Campus 2</span>
+                        </p>
+                        
+                        <p className="footer-item">
+                            <FaGlobe className="footer-icon" />
+                            <span><strong>Website:</strong> <a href="https://ml-iotlab.com" target="_blank" rel="noreferrer">https://ml-iotlab.com</a></span>
+                        </p>
+                        
+                        <p className="footer-item">
+                            <FaEnvelope className="footer-icon" />
+                            <span>
+                                <strong>Email:</strong><br/>
+                                <a href="mailto:nkloi@hcmut.edu.vn">nkloi@hcmut.edu.vn</a><br/>
+                                <a href="mailto:mlandiotlab@gmail.com">mlandiotlab@gmail.com</a>
+                            </span>
+                        </p>
+                    </div>
+                    
                     <div className="social-links">
-                        <a href="https://www.facebook.com/hcmut.ml.iot.lab" className="social-link"><FaFacebookF /></a>
-                        <a href="https://github.com/mliotlab" className="social-link"><FaGithub /></a>
-                        <a href="youtube.com/@mliotlab" className="social-link"><FaYoutube /></a>
+                        <a href="https://facebook.com/hcmut.ml.iot.lab" className="social-link" target="_blank" rel="noreferrer" title="Fanpage">
+                            <FaFacebookF />
+                        </a>
+                        <a href="https://youtube.com/@mliotlab" className="social-link" target="_blank" rel="noreferrer" title="Youtube">
+                            <FaYoutube />
+                        </a>
+                        <a href="https://github.com/mliotlab" className="social-link" target="_blank" rel="noreferrer" title="Github">
+                            <FaGithub />
+                        </a>
                     </div>
                 </div>
             </div>

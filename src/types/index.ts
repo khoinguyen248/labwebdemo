@@ -15,6 +15,8 @@ export interface MemberData {
 
 export interface ProjectData {
     "Tên": string;
+    "Competition"?: string; // Parsed from brackets in Tên
+    "Project Name"?: string; // Actual project name without competition
     "Giải thưởng"?: string;
     "Thành viên nhóm"?: string;
     "Mô tả"?: string;

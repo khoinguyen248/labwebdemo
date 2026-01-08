@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaSearch } from 'react-icons/fa';
 
 const Header: React.FC = () => {
     const navigate = useNavigate();
@@ -27,12 +26,8 @@ const Header: React.FC = () => {
                 </nav>
 
                 <div className="header-actions">
-                    <div className="search-bar">
-                        <FaSearch className="search-icon" />
-                        <input type="text" placeholder="Search..." />
-                        <span className="shortcut-hint">Ctrl K</span>
-                    </div>
                     <button className="btn-primary" onClick={() => navigate('/join-us')}>Join Us</button>
+                    <button className="btn-primary" onClick={() => navigate('/contact')}>Contact</button>
                 </div>
             </div>
         </header>

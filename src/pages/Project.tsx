@@ -2,11 +2,43 @@ import React, { useState, useEffect } from 'react';
 import Papa from 'papaparse';
 import type { ProjectData } from '../types';
 import './Project.css';
-import { FaGithub, FaUsers } from 'react-icons/fa';
+import { FaGithub, FaUsers, FaTrophy, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 const Project: React.FC = () => {
     const [projects, setProjects] = useState<ProjectData[]>([]);
     const [loading, setLoading] = useState(true);
+    const [expandedProjects, setExpandedProjects] = useState<Set<number>>(new Set());
+
+    const toggleProjectExpansion = (index: number) => {
+        setExpandedProjects(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(index)) {
+                newSet.delete(index);
+            } else {
+                newSet.add(index);
+            }
+            return newSet;
+        });
+    };
+
+    // Function to parse competition name from brackets
+    const parseCompetitionAndName = (fullName: string): { competition: string; projectName: string } => {
+        if (!fullName || fullName.trim() === '') {
+            return { competition: 'Lab Project', projectName: 'Untitled Project' };
+        }
+        
+        const bracketMatch = fullName.match(/\[(.*?)\]/);
+        if (bracketMatch) {
+            const competition = bracketMatch[1].trim();
+            const projectName = fullName.replace(/\[.*?\]/, '').trim();
+            return { competition, projectName: projectName || 'Project' };
+        }
+        // Check if it's a summer course project (khóa hè)
+        if (fullName.toLowerCase().includes('khóa hè') || fullName.toLowerCase().includes('project khóa hè')) {
+            return { competition: 'Lab Project', projectName: 'Summer Course Project' };
+        }
+        return { competition: 'Lab Project', projectName: fullName };
+    };
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -24,13 +56,18 @@ const Project: React.FC = () => {
                         // Filter out empty rows or instruction rows
                         const data = (results.data as any[]).filter(item =>
                             item['Tên'] && item['Tên'] !== 'Tên' && !item['Tên'].startsWith('Yêu cầu')
-                        ).map(item => ({
-                            "Tên": item['Tên'],
-                            "Giải thưởng": item['Giải thưởng'],
-                            "Thành viên nhóm": item['Thành viên nhóm'],
-                            "Mô tả": item['Mô tả'],
-                            "Link git": item['Link git']
-                        }));
+                        ).map(item => {
+                            const { competition, projectName } = parseCompetitionAndName(item['Tên']);
+                            return {
+                                "Tên": item['Tên'],
+                                "Competition": competition,
+                                "Project Name": projectName,
+                                "Giải thưởng": item['Giải thưởng'],
+                                "Thành viên nhóm": item['Thành viên nhóm'],
+                                "Mô tả": item['Mô tả'],
+                                "Link git": item['Link git']
+                            };
+                        });
                         setProjects(data);
                         setLoading(false);
                     },
@@ -68,43 +105,83 @@ const Project: React.FC = () => {
 
             <div className="container page-content">
                 <div className="projects-grid">
-                    {projects.map((project, index) => (
-                        <div className="project-card" key={index}>
-                            <div className="project-body">
-                                {project['Giải thưởng'] ? (
-                                    <span className="project-tag award">{project['Giải thưởng']}</span>
-                                ) : (
-                                    <span className="project-tag">Lab Project</span>
-                                )}
+                    {projects.map((project, index) => {
+                        const isExpanded = expandedProjects.has(index);
+                        const hasDescription = project['Mô tả'] && project['Mô tả'].trim();
+                        const descriptionLength = project['Mô tả']?.length || 0;
+                        const shouldShowToggle = descriptionLength > 150; // Show toggle if description is long
 
-                                <h2 className="project-title">{project['Tên']}</h2>
-
-                                {project['Mô tả'] && (
-                                    <p className="project-description">{project['Mô tả']}</p>
-                                )}
-
-                                <div className="project-meta">
-                                    <div className="project-members">
-                                        <FaUsers className="icon" />
-                                        <span>{project['Thành viên nhóm']}</span>
+                        return (
+                            <div className="project-card" key={index}>
+                                <div className="project-body">
+                                    {/* Competition Name and Award on same line */}
+                                    <div className="competition-header">
+                                        <span className={`competition-tag ${project['Competition'] === 'Lab Project' ? 'lab-project' : 'competition'}`}>
+                                            {project['Competition']}
+                                        </span>
+                                        {/* Award/Ranking */}
+                                        {project['Giải thưởng'] && project['Giải thưởng'].trim() && (
+                                            <div className="project-award">
+                                                <FaTrophy className="award-icon" />
+                                                <span className="award-text">{project['Giải thưởng']}</span>
+                                            </div>
+                                        )}
                                     </div>
+
+                                    {/* Project Name */}
+                                    <h2 className="project-title">{project['Project Name']}</h2>
+
+                                    {/* Description with Expand/Collapse */}
+                                    {hasDescription && (
+                                        <div className="project-description-section">
+                                            <div className="description-header">
+                                                <h4>Description</h4>
+                                                {shouldShowToggle && (
+                                                    <button 
+                                                        className="expand-toggle"
+                                                        onClick={() => toggleProjectExpansion(index)}
+                                                        aria-label={isExpanded ? "Collapse" : "Expand"}
+                                                    >
+                                                        {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
+                                                    </button>
+                                                )}
+                                            </div>
+                                            <p className={`project-description ${isExpanded ? 'expanded' : 'collapsed'}`}>
+                                                {project['Mô tả']}
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    {/* Members */}
+                                    {project['Thành viên nhóm'] && (
+                                        <div className="project-meta">
+                                            <div className="project-members">
+                                                <FaUsers className="icon" />
+                                                <div>
+                                                    <span className="meta-label">Team Members:</span>
+                                                    <span className="meta-value">{project['Thành viên nhóm']}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* GitHub Link */}
+                                <div className="project-footer">
+                                    {project['Link git'] && project['Link git'].trim() && (
+                                        <a
+                                            href={project['Link git']}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="github-link"
+                                        >
+                                            <FaGithub /> View on GitHub
+                                        </a>
+                                    )}
                                 </div>
                             </div>
-
-                            <div className="project-footer">
-                                {project['Link git'] && (
-                                    <a
-                                        href={project['Link git']}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="github-link"
-                                    >
-                                        <FaGithub /> GitHub
-                                    </a>
-                                )}
-                            </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </div>
