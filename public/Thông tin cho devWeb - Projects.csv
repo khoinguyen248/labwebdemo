@@ -1,20 +1,10 @@
-Tên,Giải thưởng,Thành viên nhóm,,Mô tả,Link git,,,Yêu cầu mô tả: 1-5 câu. Project làm về vấn đề gì? Sử dụng kỹ thuật gì? Có kết quả thế nào
-[Olympic AI HCMC 2025] Mushrooms classification using Mutual Learning,,Thịnh,,"Xây dựng mô hình phân loại ảnh chụp các loại nấm: đông cô, linh chi trắng, đùi gà và mỡ. Nhóm sử dụng kĩ thuật học tương hỗ (Mutual Learning) giữa các mô hình EfficientNet và Resnet để đạt được kết quả cạnh tranh và giải Nhất chung cuộc.",https://github.com/ThinhVan27/OAI_2025-EEIoT_newbie,,,
-[IoT Challenge 2025] ,TOP20,"Phương Hiền,
- Duy Tân, Gia Bảo, Bá Thao, Hoài An",,"Đề tài tham gia: Xe đẩy tự động thanh toán ứng 
-dụng Edge AI và IoT. Phần cứng chính do BTC cung 
-cấp gồm các sản phẩm của Silicon Labs và 1 máy 
-tính nhúng. Camera chụp ảnh gửi về máy tính
-nhúng xử lý và trả kết quả trên web, tự động thêm
-vào giỏ hàng cho sản phẩm có mã vạch. Cân tự 
-động cho sản phẩm cân ký. Hỗ trợ ánh sáng cho 
-camera sử dụng giọng nói. Nguồn riêng cho hệ thống. 
-Kết quả có hình thành hệ thốnh nhưng do yếu tố kĩ 
-thuật phát sinh nên độ trễ còn khá nhiều, nhiều chức
-năng không đủ thời gian thực hiện như vòng ngoài đã
-đề ra, chưa hoàn toàn có tính năng riêng cho IoT và 
-chưa làm rõ được vai trò của Edge AI.",https://github.com/hinbon/IoTC-2025.git,,,
-[Intel AI Tranning 2025],,Triều,,,,,,
-[HCMC AI Challenge2025],,Thịnh,,"Thiết kế và xây dựng hệ thống truy xuất sự kiện từ bộ dữ liệu gồm các video từ BTC cung cấp. Các phương thức tìm kiếm nhóm khai thác bao gồm ngữ nghĩa, đối tượng, OCR. Nhóm đề xuất thêm các giải thuật như tìm ngưỡng cắt frame, tìm kiếm sự kiện theo thời gian. Hệ thống đã chứng minh khả năng mạnh mẽ trong tìm kiếm và xác định sự kiện khi được tham gia vào vòng CK và được chấp nhận bài báo tại hội nghị SOICT 2025.",https://github.com/ThinhVan27/AIC-2025,,,
-[Viettel AI Race 2025],Top 5 track CV,Phát,,,,,,
-Project khóa hè,top 5 đề tài xuất sắc,,,,,,,
+Tên,Tên dự án,Giải thưởng,Thành viên nhóm,,Mô tả,Link git,,,Yêu cầu mô tả: 1-5 câu. Project làm về vấn đề gì? Sử dụng kỹ thuật gì? Có kết quả thế nào
+[Olympic AI HCMC 2025],Mushrooms classification using Mutual Learning,First Prize,"Võ Văn Thịnh, Nguyễn Duy Tân, Nguyễn Trần Anh Quân, Trần Minh Huy",,"We developed an image classification model for identifying mushroom species, including shiitake, white reishi, king oyster, and straw mushrooms. The proposed approach leverages mutual learning between EfficientNet and ResNet architectures to enhance performance, achieving competitive results and securing first place overall.",https://github.com/ThinhVan27/OAI_2025-EEIoT_newbie,,,
+[IoT Challenge 2025] ,Smart Cart Shopping System with IoT and Edge AI,TOP20,"Nguyễn Thị Phương Hiền,
+ Nguyễn Duy Tân,Lâm Gia Bảo, Nguyễn Bá Thao, Trần Hoài An",,"The core hardware was provided by the organizers and included Silicon Labs devices and an embedded computing platform. Images captured by the camera were transmitted to the embedded system for processing, with results displayed on a web interface. Products with barcodes were automatically added to the virtual shopping cart, while weight-based items were handled via an integrated automatic weighing system. The system also supported voice-controlled lighting to assist camera operation and utilized an independent power supply.
+A functional system prototype was successfully developed. However, due to unforeseen technical challenges, the system exhibited relatively high latency, and several planned features could not be fully implemented within the given timeframe. In addition, IoT-specific functionalities were not fully differentiated, and the role of Edge AI was not yet clearly demonstrated.",https://github.com/hinbon/IoTC-2025.git,,,
+[Intel AI Tranning 2025],Smart Vision - WEIGHTPRO,Runner Up Prize,"Nguyễn Hoàng Triều, Tăng Phồn Thịnh, Hoàng Trung Kiên",,"An AI-based system for automatic shrimp counting and classification on a conveyor belt.
+Notably, the system was successfully deployed on the Intel UP4000 board using the OpenVINO toolkit, enabling direct execution of AI models on a real-world IoT platform. The proposed solution demonstrated strong practical feasibility by accurately counting, classifying, and estimating shrimp weight on the conveyor belt with high accuracy and low latency, thereby optimizing operational costs and improving overall productivity.",,,,
+[HCMC AI Challenge2025],Video Retrieval System,The Final Round,"Võ Văn Thịnh, Nguyễn Minh Khôi, Trần Minh Huy, Nguyễn Trần Anh Quân, Nguyễn Duy Tân",,"We designed and developed an event retrieval system using a video dataset provided by the organizers. The proposed system supports multiple retrieval modalities, including semantic-based search, object-based search, and OCR-based search. In addition, the team introduced several enhancements such as adaptive frame-cut thresholding and time-aware event retrieval algorithms. The system demonstrated strong performance in event search and localization during the final competition round, and the associated research paper was accepted for publication at the SOICT 2025 conference.",https://github.com/ThinhVan27/AIC-2025,,,
+[Viettel AI Race 2025],,Top 5 track CV,Phát,,,,,,
+Project khóa hè,,top 5 đề tài xuất sắc,,,,,,,
