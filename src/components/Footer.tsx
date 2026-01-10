@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
                 <div className="footer-left">
                     <div className="logo-section">
                         <span className="copyright">
-                            © 2019 - {new Date().getFullYear()}. Made by SE Team @ MLIoT Lab. All rights reserved
+                            © 2019 - {new Date().getFullYear()}.SE Team @ MLIoT Lab. All rights reserved
                         </span>
                     </div>
                 </div>
