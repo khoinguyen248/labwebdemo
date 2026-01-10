@@ -65,13 +65,23 @@ const Member: React.FC = () => {
         return avatarUrl;
     };
 
-    const getTeamClass = (member: MemberData) => {
+    const getMemberTeams = (member: MemberData) => {
         const role = member['Vai trò']?.toLowerCase() || '';
         const team = member['Team']?.toLowerCase() || '';
-        if (team.includes('ai') || role.includes('ai')) return 'team-ai';
-        if (team.includes('iot') || role.includes('iot')) return 'team-iot';
-        if (team.includes('se') || role.includes('se')) return 'team-se';
-        return '';
+        const teams: string[] = [];
+
+        if (team.includes('ai') || role.includes('ai')) teams.push('AI');
+        if (team.includes('iot') || role.includes('iot')) teams.push('IoT');
+        if (team.includes('se') || role.includes('se')) teams.push('SE');
+
+        return teams;
+    };
+
+    const getTeamClass = (member: MemberData) => {
+        const teams = getMemberTeams(member);
+        if (teams.length === 0) return '';
+        // Return classes for all matched teams
+        return teams.map(t => `team-${t.toLowerCase()}`).join(' ');
     };
 
     useEffect(() => {
@@ -122,10 +132,11 @@ const Member: React.FC = () => {
     const renderMemberCard = (member: MemberData) => {
         const memberName = member['Tên']?.trim();
         const avatarUrl = getAvatarUrl(member);
-        const teamClass = getTeamClass(member);
+        const teamClasses = getTeamClass(member);
+        const teams = getMemberTeams(member);
 
         return (
-            <div className={`member-card-standard ${teamClass}`} key={member['Tên']}>
+            <div className={`member-card-standard ${teamClasses}`} key={member['Tên']}>
                 <div className="card-avatar-section">
                     <img
                         src={avatarUrl}
@@ -154,11 +165,13 @@ const Member: React.FC = () => {
                     </h3>
                     <div className="role-tag-container">
                         <p className="member-role-text">{member['Vai trò']}</p>
-                        {teamClass && (
-                            <p className={`team-badge ${teamClass}`}>
-                                {teamClass === 'team-ai' ? 'AI' : teamClass === 'team-iot' ? 'IoT' : 'SE'}
-                            </p>
-                        )}
+                        <div className="team-badges">
+                            {teams.map(team => (
+                                <p key={team} className={`team-badge team-${team.toLowerCase()}`}>
+                                    {team}
+                                </p>
+                            ))}
+                        </div>
                     </div>
                     <div className="card-edu-line">
 
@@ -279,9 +292,16 @@ const Member: React.FC = () => {
                                 }}
                             />
                             <div className="modal-info-block">
-                                <span className={`modal-role-badge ${getTeamClass(selectedMember)}`}>
-                                    {selectedMember['Vai trò']}
-                                </span>
+                                <div className="modal-role-container">
+                                    <p className="modal-role-title">{selectedMember['Vai trò']}</p>
+                                    <div className="modal-team-badges">
+                                        {getMemberTeams(selectedMember).map(team => (
+                                            <span key={team} className={`modal-role-badge team-${team.toLowerCase()}`}>
+                                                {team}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
                                 <h2>{selectedMember['Tên']}</h2>
                                 <div className="modal-edu-text">
                                     {selectedMember['Trường/Ngành']}
