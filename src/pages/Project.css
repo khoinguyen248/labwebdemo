@@ -52,7 +52,7 @@
     gap: 0.75rem;
 }
 
-/* Competition Header */
+/* Competition Header - Fixed min-height to prevent shifting */
 .competition-header {
     display: flex;
     align-items: center;
@@ -60,12 +60,13 @@
     gap: 0.75rem;
     margin-bottom: 0.5rem;
     flex-wrap: wrap;
+    min-height: 2.5rem; /* Ensure space for tags even if one wraps */
 }
 
 .competition-tag {
     display: inline-block;
     padding: 0.35rem 0.75rem;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     font-weight: 700;
     width: fit-content;
     text-transform: uppercase;
@@ -83,13 +84,19 @@
     color: white;
 }
 
-/* Project Title */
+/* Project Title - Minimum height for 2 lines */
 .project-title {
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--color-5);
     line-height: 1.3;
     margin-bottom: 0.5rem;
+    min-height: 3.2rem; /* Consistent height for titles */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 /* Award Section */
@@ -114,9 +121,12 @@
     font-size: 0.75rem;
 }
 
-/* Description Section */
+/* Description Section - Flex grow to push meta down */
 .project-description-section {
     margin-bottom: 0.75rem;
+    flex-grow: 1; /* This is key for alignment */
+    display: flex;
+    flex-direction: column;
 }
 
 .description-header {
@@ -217,6 +227,7 @@
 .meta-value {
     color: #4b5563;
     font-size: 0.85rem;
+    white-space: pre-wrap;
 }
 
 .project-footer {

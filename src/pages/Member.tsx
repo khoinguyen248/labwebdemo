@@ -145,21 +145,21 @@ const Member: React.FC = () => {
                     />
                 </div>
                 <div className="card-info-section">
-                    <div className="card-header-flex">
-                        <h3
-                            className="member-name-text"
-                            onClick={() => setSelectedMember(member)}
-                            title="View Profile"
-                        >
-                            {member['Tên']}
-                        </h3>
+                    <h3
+                        className="member-name-text"
+                        onClick={() => setSelectedMember(member)}
+                        title="View Profile"
+                    >
+                        {member['Tên']}
+                    </h3>
+                    <div className="role-tag-container">
+                        <p className="member-role-text">{member['Vai trò']}</p>
                         {teamClass && (
-                            <span className={`team-badge ${teamClass}`}>
+                            <p className={`team-badge ${teamClass}`}>
                                 {teamClass === 'team-ai' ? 'AI' : teamClass === 'team-iot' ? 'IoT' : 'SE'}
-                            </span>
+                            </p>
                         )}
                     </div>
-                    <p className="member-role-text">{member['Vai trò']}</p>
                     <div className="card-edu-line">
 
                         <span className="edu-text">{member['Trường/Ngành']}</span>
@@ -239,7 +239,7 @@ const Member: React.FC = () => {
                 {leaders.length > 0 && (
                     <section className="member-section">
                         <h2 className="section-label">Team Leaders</h2>
-                        <PaginatedMemberGrid members={leaders} renderCard={renderMemberCard} itemsPerPage={2} />
+                        <PaginatedMemberGrid members={leaders} renderCard={renderMemberCard} itemsPerPage={3} />
                     </section>
                 )}
 

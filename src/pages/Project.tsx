@@ -26,7 +26,7 @@ const Project: React.FC = () => {
         if (!fullName || fullName.trim() === '') {
             return { competition: 'Lab Project', projectName: 'Untitled Project' };
         }
-        
+
         const bracketMatch = fullName.match(/\[(.*?)\]/);
         if (bracketMatch) {
             const competition = bracketMatch[1].trim();
@@ -57,11 +57,19 @@ const Project: React.FC = () => {
                         const data = (results.data as any[]).filter(item =>
                             item['Tên'] && item['Tên'] !== 'Tên' && !item['Tên'].startsWith('Yêu cầu')
                         ).map(item => {
-                            const { competition, projectName } = parseCompetitionAndName(item['Tên']);
+                            // First, try to extract competition from the 'Tên' column
+                            const { competition, projectName: parsedName } = parseCompetitionAndName(item['Tên']);
+
+                            // Prefer 'Tên dự án' column if it's not empty, otherwise fallback to parsed name from 'Tên'
+                            let finalProjectName = item['Tên dự án']?.trim() || '';
+                            if (!finalProjectName || finalProjectName === '') {
+                                finalProjectName = parsedName;
+                            }
+
                             return {
                                 "Tên": item['Tên'],
                                 "Competition": competition,
-                                "Project Name": projectName,
+                                "Project Name": finalProjectName,
                                 "Giải thưởng": item['Giải thưởng'],
                                 "Thành viên nhóm": item['Thành viên nhóm'],
                                 "Mô tả": item['Mô tả'],
@@ -137,7 +145,7 @@ const Project: React.FC = () => {
                                             <div className="description-header">
                                                 <h4>Description</h4>
                                                 {shouldShowToggle && (
-                                                    <button 
+                                                    <button
                                                         className="expand-toggle"
                                                         onClick={() => toggleProjectExpansion(index)}
                                                         aria-label={isExpanded ? "Collapse" : "Expand"}
